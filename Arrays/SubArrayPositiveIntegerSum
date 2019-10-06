@@ -1,0 +1,40 @@
+using System;
+
+namespace _4a_question3
+{
+    //3.	Given an unsorted array of nonnegative integers, 
+    //find a continous subarray which adds to a given number
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int []array = { 1, 4, 20, 3, 10, 5 };
+            int curr_sum=0, i, j;
+            int sum = 33;
+            int n = array.Length;
+
+            for(
+                i=0;i<n;i++)
+            {
+                curr_sum = array[i];
+                for(j=i+1;j<=n;j++)
+                {
+                    if (curr_sum == sum)
+                    {
+                        int endindex = j-1;
+                        Console.WriteLine("Sum found between index " + i + "and" + endindex);
+                        Console.ReadLine();
+                        break;
+                    }
+
+                    if (curr_sum > sum || j == n)
+                        break;
+                    curr_sum = curr_sum + array[j];
+
+                }
+            }
+
+            Console.WriteLine("No subarray found");
+        }
+    }
+}
