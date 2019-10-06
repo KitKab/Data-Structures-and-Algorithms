@@ -1,0 +1,184 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace LRU_Implementation
+{
+    class LRUCache
+    {
+        public class Node   
+        {
+            public int key;
+            public int value;
+            public Node next;
+            public Node (int ky,int vl)
+            {
+                key = ky;
+                value = vl;
+                next = null; 
+            }
+
+            public Node()
+            {
+                key = 0;
+                value = 0;
+                next = null;
+            }
+        }
+
+        public Node headNode;
+        public int maxCapacity;
+        public Dictionary<int, Node> myList = new Dictionary<int, Node>();
+
+        public LRUCache(int maxCapacity)
+        {
+            
+            this.maxCapacity = maxCapacity;
+ 
+        }
+
+        public int get(int key)
+        {
+            if(myList.TryGetValue(key, out Node node))
+                {
+                moveToHead(node);
+                return node.value;
+                }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public void Set(int key, int value)
+        {
+            Node node = new Node();
+            // if the key doesnt exist in the table
+            // and max capacity of the table has been reached, 
+            // then delete tail and add node to head
+            if (!myList.ContainsKey(key))
+            {
+                if (myList.Count >= maxCapacity)
+                {
+                    removeLRUEntryFromTable();
+                }
+                node.key = key;
+                node.value = value;
+                myList.Add(key, node);
+                AddtoFront(node);
+                
+            }
+            else
+            {
+                node.value = value;
+                moveToHead(node);
+            }
+         
+        }
+
+        public Node deleteTail()
+        {
+            Node current = new Node();
+            Node previous = new Node();
+            current = headNode;
+            while (current.next!= null)
+            {
+                previous = current;
+                current = current.next;
+
+            }
+            previous.next = null;
+            return (current);
+        }
+
+        /*
+
+          Remove the least used entry from linked
+
+          list as well as the hashtable. Hence it is removed
+
+          from the  LRUCache structure
+
+        */
+
+        public void removeLRUEntryFromTable()
+        {
+            Node tail = deleteTail();
+            myList.Remove(tail.key);
+
+        }
+
+        public void PrintList()
+        {
+            Node current = new Node();
+            current = headNode;
+            while (current != null)
+            {
+                Console.WriteLine("Key " + current.key+" " + "Value "+ current.value);
+                current = current.next;
+            }
+        }
+        public void moveToHead(Node node)
+        {
+            deleteNode(node);
+            AddtoFront(node);
+        }
+
+        public void deleteNode(Node node )
+        {
+            Node current = headNode;
+            Node previous = new Node();
+      
+            while (current != null)
+            {
+                if (current.key == node.key)
+                {
+                    previous.next = current.next;
+                    break;
+                }
+                else
+                {
+                    previous = current;
+                    current = current.next;
+                }
+            }
+        }
+
+        public void AddtoFront(Node node)
+        {
+            Node current = node;
+            if (headNode == null)
+            {
+                headNode= current;
+            }
+            else
+            {
+                current.next = headNode;
+                headNode = current;
+            }
+        }
+        static void Main(string[] args)
+        {
+            LRUCache lRUCache = new LRUCache(4);
+            lRUCache.Set(1, 1);
+            lRUCache.Set(2, 3);
+            lRUCache.Set(3, 4);
+            lRUCache.Set(4, 7);
+            lRUCache.Set(6, 10);
+            lRUCache.PrintList();
+            int val = lRUCache.get(4);
+            Console.WriteLine("Getting value from LRU cache");
+            lRUCache.PrintList();
+            lRUCache.Set(12, 5);
+            Console.WriteLine("Updating cache with new set values");
+            lRUCache.PrintList();
+            lRUCache.Set(13, 7);
+            Console.WriteLine("Updating cache with new set values");
+            lRUCache.PrintList();
+            int val1 = lRUCache.get(12);
+            Console.WriteLine("Getting value from LRU cache");
+            lRUCache.PrintList();
+            Console.ReadLine();
+        }
+    }
+}
