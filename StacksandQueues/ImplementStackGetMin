@@ -1,0 +1,147 @@
+using System;
+
+namespace Ass5_StackGetMin
+{
+   public class Node
+    {
+        public int data;
+        public Node next;
+
+        public Node()
+        {
+        }
+
+        public Node(int d)
+        {
+            data = d;
+            next = null;
+        }
+
+    }
+
+    public class MyStack
+    {
+        public Node headNode;
+        int minimumElement;
+
+        public  int getMin()
+        {
+            if (headNode == null)
+            {
+                Console.WriteLine("Stack is empty");
+                minimumElement = -1;
+                return -1;
+            }
+            return minimumElement;
+        }
+
+        public void Push(int data)
+        {
+            Node current = new Node(data);
+          
+            if (headNode==null)
+            {
+                headNode = current;
+                minimumElement = current.data;
+                return;
+            }
+            else
+            {   if(minimumElement > current.data)
+                {
+                    minimumElement = current.data;
+                }
+                current.next = headNode;
+                headNode = current;
+            }
+        }
+
+        public int Pop()
+        {
+            //when popped value is equal to min value, 
+            //start from beginning to end and find new minimum
+            if (headNode == null)
+            {
+                Console.WriteLine("Stack is empty");
+                minimumElement = -1;
+                return -1;
+            }
+            else
+            {
+                Node current = headNode;
+                Node temp = headNode.next;
+                int nextMinElement = 10000;
+                if (minimumElement == headNode.data)
+                {
+                    while (temp != null)
+                    {
+                        if (nextMinElement > temp.data)
+                        {
+                           nextMinElement= temp.data;
+                        }
+                        temp = temp.next;
+                    }
+                }
+                headNode = headNode.next;
+                minimumElement = nextMinElement;
+                return current.data;
+            }
+        }
+
+        public void PrintList()
+        {  
+            Node current = headNode;
+            if (headNode == null)
+            {
+                Console.WriteLine("Stack is empty");
+            }
+            while (current!=null)
+            {
+                Console.WriteLine(current.data);
+                current = current.next;
+            }
+          
+        }
+    }
+
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            MyStack stack = new MyStack();
+            stack.Push(10);
+            stack.Push(20);
+            stack.Push(3);
+            stack.Push(40);
+            int minValue = stack.getMin();
+            Console.WriteLine(minValue);
+            stack.PrintList();
+            Console.ReadLine();
+            stack.Pop();
+            stack.Pop();
+            stack.Pop();
+            stack.Pop();
+            minValue = stack.getMin();
+            Console.WriteLine(minValue);
+            stack.PrintList();
+            Console.WriteLine("Pushing elements------");
+            stack.Push(3);
+            stack.Push(4);
+            Console.WriteLine("Printing stack");
+            stack.PrintList();
+             minValue = stack.getMin();
+            Console.WriteLine(minValue);
+            stack.Push(13);
+            stack.Push(1);
+            stack.PrintList();
+            Console.WriteLine("Minimum element------");
+            minValue = stack.getMin();
+            Console.WriteLine(minValue);
+            Console.WriteLine("Popping element " +stack.Pop());
+            Console.WriteLine("Printing stack");
+            stack.PrintList();
+            minValue = stack.getMin();
+            Console.WriteLine("Minimum element------");
+            Console.WriteLine(minValue);
+        }
+    }
+}
