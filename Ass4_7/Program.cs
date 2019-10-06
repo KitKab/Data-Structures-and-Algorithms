@@ -2,11 +2,35 @@
 
 namespace Ass4_7
 {
+    /*
+     * 7.	Write a program to print all the LEADERS in the array. 
+     * An element is leader if it is greater than all the elements
+     * to its right side. 
+     * And the rightmost element is always a leader. 
+     * For example int the array {16, 17, 4, 3, 5, 2}, leaders are 17, 5 and 2. ->done
+   */
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            int[] arr = { 19, 17, 4, 7, 1, 2 };
+            int curr_leader = 0;
+            int n = arr.Length;
+            // last element in the array is always a leader
+            curr_leader = arr[n - 1];
+            Console.WriteLine(curr_leader);
+            //traverse back from the end of the array
+            for(int i =n-2;i>=0;i--)
+            {
+                //compare the element in the array with current leader
+                if (curr_leader < arr[i])
+                {
+                    curr_leader = arr[i];
+                    Console.WriteLine(curr_leader);
+                }
+            }
+            Console.ReadLine();
+
         }
     }
 }
