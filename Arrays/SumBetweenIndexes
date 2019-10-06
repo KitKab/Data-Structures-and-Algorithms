@@ -1,0 +1,47 @@
+using System;
+
+namespace Ass4_4b
+{
+    class Program
+    {
+        static int subarray(int[] arr, int sum)
+        {
+            int currsum = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                currsum = arr[i];
+                for (int j = i + 1; j <= arr.Length; j++)
+                {
+                    if (currsum == sum)
+                    {
+                        Console.WriteLine("The sum is found between indices{0} and {1}", i, (j - 1));
+                        Console.ReadLine();
+                        return 1;
+                    }
+
+                    if ( j == arr.Length && currsum!=sum)
+                    {
+                        // Console.WriteLine("No Sum found in the subarray");
+
+                        break;
+                    }
+                    currsum = currsum + arr[j];
+                }
+
+            }
+            Console.WriteLine("No Sum found in the subarray");
+            return 0;
+        }
+        public static void Main(string[] args)
+        {
+            int[] arr1 = { 1, 4, 20, 3, 10, 5 };
+            int[] arr2 = { 10, 2, -2, -20, 10 };
+            int[] arr3 = { 1, 4 };
+            int sum = 33, sum2 = -10, sum3 = 0;
+            subarray(arr1, sum);
+            subarray(arr2, sum2);
+            subarray(arr3, sum3);
+            Console.ReadLine();
+        }
+    }
+}
