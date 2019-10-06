@@ -1,0 +1,69 @@
+using System;
+using System.Collections.Generic;
+//Implement Queue using 2 stacks
+namespace Assignment5_2_ImplementQueueUsing2Stacks
+{
+    class Program
+    {
+        public  class MyQueue
+        {
+            
+            private Stack<int> stack1;
+            private Stack<int> stack2;
+            public int Dequeue()
+            {
+                int value = 0,temp=0;
+                //Count the elements in stack
+                int size = stack1.Count;
+                if (size == 0)
+                    return -1;
+                for(int count =0;count<size-1;count++)
+                {
+                    // pop the top of stack and push it onto second stack
+                    // pop all elements except last
+                   value= stack1.Pop();
+                   stack2.Push(value);
+                }
+                // save the last element in value and return it as first element of queue
+                value = stack1.Pop();
+                int size2 = stack2.Count;
+                for (int count = 0; count < size2; count++)
+                {
+                    //push remaining items on 1st stack
+                    temp = stack2.Pop();
+                    stack1.Push(temp);
+                }
+
+                return value;
+            }
+            public MyQueue()
+            {
+                stack1 = new Stack<int>();
+                stack2 = new Stack<int>();
+            }
+            public void Enqueue(int mValue)
+            {
+                // push all elements in stack
+                stack1.Push(mValue);
+            }
+        }
+        public static void Main(string[] args)
+        {
+
+            MyQueue q1 = new MyQueue();
+            q1.Enqueue(10);
+            q1.Enqueue(20);
+            q1.Enqueue(30);
+            q1.Enqueue(40);
+            q1.Enqueue(50);
+            Console.WriteLine("Dequeue "+" " +q1.Dequeue());
+            Console.WriteLine(q1.Dequeue());
+            Console.WriteLine(q1.Dequeue());
+            Console.WriteLine(q1.Dequeue());
+            Console.WriteLine(q1.Dequeue());
+            Console.ReadLine();
+        }
+
+        
+    }
+}
