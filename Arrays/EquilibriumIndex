@@ -1,0 +1,45 @@
+using System;
+
+namespace Ass4_6EquilibriumIndex
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            //int[] arr1 = {-7,1,5,2,-4,3,0};
+            int[] arr1 = { -2,4,3,6,-4};
+            int[] arr2 = { -7, 1, 0, 2, -4, 3, 0 };
+            int size = arr1.Length;
+            
+            if (CheckEquilibrium(arr1, size) == -1)
+                Console.Write("No equilibrium index found");
+            Console.ReadLine();
+
+        }
+
+        public static int CheckEquilibrium(int[] arr1, int size)
+        {
+            int sum = 0;
+            int []addition = { 0, 0, 0, 0, 0 };
+            int i = 0;
+            addition[i] = arr1[i];
+
+            for (i = 1; i < arr1.Length; i++)
+            {
+                addition[i] = addition[i - 1] + arr1[i];
+               
+            }
+            for ( i=size-1;i>=0;i--)
+            {
+                sum = sum + arr1[i];
+                if (sum == addition[i])
+                {
+                    Console.Write("Equilibrium Index found at:"+ i);
+                    return 1;
+                }
+                
+            }
+            return -1;
+        }
+    }
+}
