@@ -1,0 +1,61 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace Assignment5_3
+{
+    //Implement stack using 2 queues
+    class Program
+    {
+        public class MyStack
+        {
+            private Queue<int> q1;
+            private Queue<int> q2;
+
+            public MyStack()
+            {
+                q1 = new Queue<int>();
+                q2 = new Queue<int>();
+            }
+
+            public void Push(int mValue)
+            {
+                q1.Enqueue(mValue);
+            }
+            public int Pop()
+            {
+                int value = 0,temp=0;
+                int size = q1.Count;
+                for(int count =0;count<size-1;count++)
+                {
+                   temp = q1.Dequeue();
+                    q2.Enqueue(temp);
+                }
+                value = q1.Dequeue();
+                int size2 = q2.Count;
+                for (int count = 0; count < size2; count++)
+                {
+                    temp = q2.Dequeue();
+                    q1.Enqueue(temp);
+                }
+                return value;
+            }
+        }
+        static void Main(string[] args)
+        {
+            MyStack stack = new MyStack();
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
+            stack.Push(4);
+            stack.Push(5);
+
+            Console.WriteLine("Pop" + stack.Pop());
+            Console.WriteLine(stack.Pop());
+            Console.WriteLine(stack.Pop());
+            Console.WriteLine(stack.Pop());
+            Console.WriteLine(stack.Pop());
+            Console.ReadLine();
+        }
+    }
+}
