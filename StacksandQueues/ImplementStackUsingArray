@@ -1,0 +1,86 @@
+using System;
+
+namespace ImplementStackUsingArray
+{
+    class Stack
+    {
+        private int[] element;
+        private int top;
+       private  int max;
+
+        public Stack(int size)
+        {
+            element = new int[size];
+            top = -1;
+            max = size;
+
+        }
+
+        public void Push(int item)
+        {
+            if(top==max -1)
+            {
+                Console.WriteLine("Stack overflow");
+                return;
+            }
+            else
+            {
+                // push elements into stack
+                element[++top] = item;
+            }
+
+        }
+
+        public int pop()
+        {
+            int p = 0;
+            // check if stack is empty
+            if (top == -1)
+            {
+                Console.WriteLine("Stack empty");
+                return -1;
+            }
+            else
+            {
+                // store top element in  variable 
+                p = element[top];
+                top--;
+            }
+            return p;
+
+        }
+
+        public void PrintStack()
+        {
+            if (top == -1)
+            {
+                Console.WriteLine("Stack empty");
+                return;
+            }
+            else
+            {
+                // print elements 
+                for(int i=0;i<=top;i++)
+                {
+                    Console.WriteLine(element[i]);
+                }
+            }
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Stack myStack = new Stack(5);
+            myStack.Push(10);
+            myStack.Push(20);
+            myStack.Push(30);
+            Console.WriteLine("Printing STack " + " ");
+            myStack.PrintStack();
+            Console.WriteLine("Popped ELement"+ " "+ +myStack.pop());
+            Console.WriteLine("Printing STack " + " ");
+            myStack.PrintStack();
+            Console.ReadLine();
+        }
+    }
+}
