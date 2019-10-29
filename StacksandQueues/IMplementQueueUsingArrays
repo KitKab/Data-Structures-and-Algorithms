@@ -1,0 +1,99 @@
+using System;
+
+namespace ImplementQueueUsingArray
+{
+    class Queue
+    {
+        private int[] element;
+        private int front;
+        private int rear;
+        private int max;
+
+
+        public Queue(int size)
+        {
+            element = new int[size];
+            front = 0;
+            rear = -1;
+            max = size;
+
+        }
+        public void Enqueue(int item)
+        {
+        // check if the queue is empty
+            if(rear==max-1)
+            {
+                Console.WriteLine("Queue full");
+                return;
+            }
+            else
+            {
+                // push items in the queue
+                element[++rear] = item;
+            }
+        }
+
+        public int Dequeue()
+        {
+            int p = 0;
+            if(front == rear+1)
+            {
+                Console.WriteLine("Queue is empty");
+                return -1;
+            }
+            else
+            {
+                Console.WriteLine("Front of Queue" +" "+ element[front]);
+                Console.WriteLine("Rear of Queue" + " " + element[rear]);
+                p = element[front];
+                front++;
+               
+            }
+            return p;
+        }
+
+        public void PrintQueue()
+        {
+            Console.WriteLine("Printing Queue");
+            //check if the queue is empty
+            if(front == rear+1)
+            {
+                Console.WriteLine("queue is empty ");
+                return;
+            }
+            else
+            { 
+                
+                for(int i=front;i<=rear;i++)
+                {
+                    Console.WriteLine(element[i]);
+
+                }
+            }
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Queue myQueue = new Queue(5);
+            
+            //add items in queue
+            myQueue.Enqueue(11);
+            myQueue.Enqueue(12);
+            myQueue.Enqueue(13);
+            myQueue.Enqueue(14);
+            myQueue.Enqueue(15);
+            //print the current queue
+            
+            myQueue.PrintQueue();
+            // dequeue element
+            int result = myQueue.Dequeue();
+            Console.WriteLine("Dequeuing element" + result);
+            myQueue.PrintQueue();
+            Console.ReadLine();
+
+
+        }
+    }
+}
