@@ -1,0 +1,39 @@
+using System;
+
+//  program to find the sum of contiguous subarray 
+// within a one-dimensional array of numbers which has the largest sum
+namespace LargestSUmSubArray
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] arr = { -1, -1, 4, 3, -4, 5, 0 };
+            int currsum = 0, maxsum = arr[0], size;
+            int start=0, end=0, s=0;
+            // get the length of the  array
+            size = arr.Length;
+            for(int i = 0;i<size;i++)
+            {
+                currsum = currsum + arr[i];
+                // check if max sum is less than currsum 
+                if(maxsum < currsum)
+                {
+                    maxsum = currsum;
+                    // start is the starting position of the subarray with the  largest sum till now
+                    start = s;
+                    // end is the ending index of the subarray 
+                    end = i;
+                }
+                if(currsum < 0)
+                {
+                    currsum = 0;
+                    // move the window of the subarray 
+                    s = i + 1;
+                }
+            }
+            Console.WriteLine("Largest Sum in Subarray" + " " + maxsum + "between index " +start+ "end" +end);
+            Console.ReadLine();
+        }
+    }
+}
