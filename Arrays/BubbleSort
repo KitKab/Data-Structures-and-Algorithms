@@ -1,0 +1,37 @@
+using System;
+
+namespace BubbleSort
+{ // Program to sort an array using Bubble Sort
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] arr = { 5, 6, 3, 1, 8, 7, 2, 4 };
+            // get the size of the array
+            int size = arr.Length;
+            int temp = 0;
+            for(int i =0;i<size;i++)
+            {
+                for(int j = 0; j<size-1;j++)
+                {
+                    // swap the number if the number is greater than the next 
+                    // number in the array
+                    if(arr[j] > arr[j+1])
+                    {
+                        temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
+
+                }
+
+            }
+            for (int k =0; k <size;k++)
+            {
+                // print the sorted array
+                Console.WriteLine(arr[k]);
+            }
+            Console.ReadLine();
+        }
+    }
+}
